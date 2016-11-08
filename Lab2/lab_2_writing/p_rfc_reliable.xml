@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is modified by Seth Nielson for creating P-RFC's
+    (Playground-RFC's). -->
+<!-- This template is for creating an Internet Draft using xml2rfc,
+    which is available here: http://xml2rfc.ietf.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.
+    There has to be one entity for each item to be referenced. 
+    An alternate method (rfc include) is described in the references. -->
+
+<!ENTITY RFC2119 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2360 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2360.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC3552 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3552.xml">
+<!ENTITY RFC5226 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5226.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs), 
+    please see http://xml2rfc.ietf.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+    (Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="4"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space 
+    (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+
+
+
+
+<rfc category="std" docName="rfc1" ipr="playgroundSpring201604" number="1">
+ <!-- category values: std, bcp, info, exp, and historic
+    ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
+       or pre5378Trust200902, playgroundWinter201501
+    you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+    they will automatically be output with "(if approved)" -->
+
+ <!-- ***** FRONT MATTER ***** -->
+
+ <front>
+   <!-- The abbreviated title is used in the page header - it is only necessary if the 
+        full title is longer than 39 characters -->
+
+   <title abbrev="PRFC's">Secure Transmission Oriented Protocol</title>
+
+   <!-- add 'role="editor"' below for the editors if appropriate -->
+
+   <!-- Another author who claims to be an editor -->
+
+   <author fullname="Vedasagar Karthykeyan" initials="V.K." role="editor"
+           surname="Karthykeyan">
+     <organization>JHU Network Security Fall 2016</organization>
+
+     <address>
+       <postal>
+         <street>JHU 160 Malone Hall/3400 North Charles St.</street>
+
+         <!-- Reorder these if your country does things differently -->
+
+         <city>Baltimore</city>
+
+         <region>MD</region>
+
+         <code>21218</code>
+
+         <country>USA</country>
+       </postal>
+
+       <phone>+1 512-701-9230</phone>
+
+       <email>vkarthy1@jhu.edu</email>
+
+       <!-- uri and facsimile elements may also be added -->
+     </address>
+   </author>
+
+   <date year="2016" />
+
+   <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
+        in the current day for you. If only the current year is specified, xml2rfc will fill 
+	 in the current day and month for you. If the year is not the current one, it is 
+	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the 
+	 purpose of calculating the expiry date).  With drafts it is normally sufficient to 
+	 specify just the year. -->
+
+   <!-- Meta-data Declarations -->
+
+   <area>General</area>
+
+   <workgroup>Playground Experiment Director</workgroup>
+
+   <!-- WG name at the upperleft corner of the doc,
+        IETF is fine for individual submissions.  
+	 If this element is not present, the default is "Network Working Group",
+        which is used by the RFC Editor as a nod to the history of the IETF. -->
+
+   <keyword>PRFC</keyword>
+
+   <!-- Keywords will be incorporated into HTML output
+        files in a meta tag but they have no effect on text or nroff
+        output. If you submit your draft to the RFC Editor, the
+        keywords will be used for the search engine. -->
+
+ </front>
+
+ <middle>
+   <section title="INTRODUCTION">
+     <t>This document describes Secure Transmission Oriented Protocol, a reliable host-to-host protocol for establishing a secure connection and the transmission of information using a packet-switched computer connected network. 
+         It describes the various schemes followed in order to ensure integrity and reliable transfer of data in streams between different groups of users.
+</t>
+     
+            <section title="Motivation">
+              <t>There are several transport protocols that have been proposed to ensure the needs of a reliable connection. 
+                  All these different protocols cater to specific needs of the environment in which they are deployed. Some of these rely more on reliable and connection-oriented communication like Transmission Control Protocol. 
+                  There are others that ensure confidentiality, integrity and authentication of the connection like Secure Real-Time Transport Protocol.</t>
+       
+               <t>Secure Transmission Oriented Protocol is a end-to-end reliable protocol with the main objective to strenghten the security of the computer connection network. 
+                   Our protocol follows a layered protocol architecture 
+                   and sits above the underlying Playground Overlay Network which provides a means for storing the source and destination addresses in a table.</t>
+       
+       	        <figure>
+                  	<artwork>
+                      
+                        Protocol Layering
+             
+                    +---------------------+
+                    |     higher-level    |
+                    +---------------------+
+                    |        STOP         |
+                    +---------------------+
+                    |     G2G protocol    |
+                    +---------------------+
+                    |     Playground      |
+                    +---------------------+
+             
+                           Figure 1.
+              		</artwork>
+              	</figure>
+       
+          
+                <t>STOP provides a reliable, secure and error-free transmission just above the Gate-to-Gate protocol which allows STOP to send and receive segments of data using a Playground addressing scheme. </t>
+            
+          </section>
+        
+      	<section title="Interfaces">
+            <t>STOP interfaces with user nodes on one end and on the other end to a lower leve Gate-to-Gate Protocol. 
+                The STOP makes requests to the G2G protocol to open and close connections via the Chaperone.</t>
+      	
+            <t>The interaction between the STOP and the G2G protocol is assumed to work in an asynchronous manner, 
+                whereby the lower level specifies the gates and assigns a Playground address to the overlying nodes in order to establish a secure connection between two parties. 
+                The lower level protocol is assumed to be the Gate-to-Gate protocol throughout the rest of this document.</t>
+      	</section>
+        
+       	<section title="About this Document">
+            <t>This document gives a detailed description of a reliable and secure en-to-end protocol and the different functionalities provided therein. 
+                Section 2 offers a functional view of the protocol operation. 
+                Section 3 gives a detailed description of the various functionalities and how they are carried out.</t>
+       	</section>
+   </section>
+   
+    <section title="FUNCTIONAL VIEW OF OPERATION">
+    
+        <section title="Association Startup and Abort">
+            <t>An association is initiated by the STOP user. 
+                A 4-way handshake mechanism is implemented in order to avoid SYN Flooding attacks that can be carried out in TCP. 
+                The initiator is challenged by sending a State Cookie to prove his authenticity in order to establish the connection to avoid spoofing.
+                Only if the initiator sends the correct cookie echo, the connection can be established.
+                The receiver sends back a stream identifier on receiving the correct cookie back.
+                This stream identifier is used throughout the connection to send and receive segments.
+            </t>
+            <t>STOP connections can be terminated on request from the user. 
+                Again a 4-way exchange finally results in gracefully closing the connection.
+                Each user sends a FIN request and waits for an ACK. Only when both the users send and receive FINs and ACKs can the connection be closed.
+                One end user cannot keep sending messages to the other end if the other end is closed. 
+                Connections can also be closed using ABORT in case of any errors or malicious activity.
+            </t>
+          
+        </section>      
+   
+        <section title="Data Transfer in Streams of Segments">
+            <t>The data is transferred in continuous stream of blocks of data bundled up in segments. 
+                Each stream is identified by a stream identifier. A fixed number of segments are sent and acknowledged. 
+                The receiver does not specify the amount of segments it can receive. The sender keeps sending the segments, while waiting for the ACKs. 
+                It also places the UNACKed segments in a retransmission queue to send them quickly if they are lost.</t>
+            
+        </section>
+   
+        <section title="Reliability">
+            <t>The protocol must recover from blocks of data that might be misplaced, damaged or delivered in a wrong sequence. 
+                Each stream of transmission is associated with a Transmission Sequence Number (TSN) to keep track of the segments that reach the other end successfully. 
+                After sending the segments, the sender starts a timer to keep track of the ACKs. If it does not receive the ACK for a particular segment, and the timer goes off, 
+                it sends that segment again and also the following ones if none of them are acknowledged.</t> 
+        
+            <t>If the receiver notices that some of the segments are missing, it can perform a quick request to the sender to send the missing segments instead of the sender waiting for the timer.
+                This is known as selective acknowledgement.
+                Thus the receiver can send out requests for a fast retransmission of missing segments from the retransmission queue.
+                The missing sequence numbers are specified in the Options field of the packet header.
+           </t>
+    
+            <t>Each segment sent by the receiver also carries an acknowledgement number which indicates which segment is next expected by it. 
+                The sender also verifies this number with the next segment in queue to make sure that the connection remains synchronized.</t> 
+    
+        </section>
+        
+        <section title="Packet Verification">
+            <t>Each user sends a randomly chosen Verification Tag, stream identifier and a 16-bit checksum to ensure the authenticity of the connection. 
+                The stream identifier is chosen at the end of the Association Startup. 
+                The Verification Tag must be included in each packet to make sure that the packets are being sent by a legitimate user at the other end. 
+                A Checksum is also included to provide protection againt data corruption. Packets with invalid Verification Tag or Checksum are discarded by the receiver.</t>
+        </section>
+        
+        <section title="Relation to Other Protocols">
+            <figure>
+                <preamble>
+                    The following diagram illustrates the place of the TCP in the protocol
+                    hierarchy:      
+                </preamble>
+                    <artwork><![CDATA[
+                        
+    +------+ +-----+ +-----+    +-----+                    
+    |Telnet| | FTP | |Voice| ...|     |  Application Level 
+    +------+ +-----+ +-----+    +-----+                    
+      |   |         |             |                       
+    +-----+     +-----+       +-----+                    
+    |STOP |     | RTP |  ...  |     |  Host Level        
+    +-----+     +-----+       +-----+                    
+       |           |            |                       
+    +-----------------------------+                    
+    |    Gate-to-Gate Protocol    |  Gateway Level     
+    +-----------------------------+                    
+                   |                                     
+    +---------------------------+                      
+    |  Playground Architecture  |    Network Level     
+    +---------------------------+                      
+    
+         Protocol Relationships
+             Figure 2.
+                        
+                    ]]></artwork>
+            </figure>
+             
+            <t>
+                <vspace blankLines="20"/>
+            </t>
+      </section>
+        
+    </section>
+   
+ 
+ <section title="FUNCTIONAL SPECIFICATION">
+     <section title="STOP Header Format">
+         <figure>
+             <preamble>
+                 The underlying protocol carries the Playground addresses associated with the source and destination nodes. 
+                 A STOP header supplies information about current connection specific to the transport protocol.
+                 
+             </preamble>
+             <artwork>
+                 
+0                   1                   2                   3   
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Source Port          |       Destination Port        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|        Verification Tag       |       Stream Identifier       |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                 Transmission Sequence Number                  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Acknowledgment Number                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|       |P|I|I|H|H|A|F|F|E|C|C|C|                               |
+| Data  |Y|N|A|T|A|B|I|A|R|H|A|L| 	        Checksum            |
+| Offset|L|I|C|B|C|R|N|C|R|L|C|S|                               |
+|       |D|T|K|T|K|T| |K| | |K|E|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Options    |           Padding             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             data                              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ 
+                        TCP Header Format
+ 
+           Note that one tick mark represents one bit position.
+ 
+                             Figure 3.
+             </artwork>
+         </figure>  
+         
+         <figure>
+             <artwork><![CDATA[
+         class StopPacketHeader(MessageDefinition):
+            MESSAGE_VERSION = "1.0"
+            BODY = [ ("src_prt", UINT2),
+                   ("dst_prt", UINT2),
+                   ("vtag", UINT2),
+                   ("stream_id", UINT2),
+                   ("TSN", UINT4),
+                   ("ACK", UINT4) 
+                   ("data_offset", UINT1)
+                   ("pyld", BOOL1)
+                   ("init", BOOL1)
+                   ("iack", BOOL1)
+                   ("htbt", BOOL1)
+                   ("hack", BOOL1)
+                   ("abort", BOOL1)
+                   ("fin", BOOL1)
+                   ("fin_ack", BOOL1)
+                   ("err", BOOL1)
+                   ("cookie", BOOL1)
+                   ("cookie_ack", BOOL1)
+                   ("close", BOOL1)
+                   ("checksum", UINT2)
+                   ("options", UINT2, OPTIONAL)
+                   ("padding", UINT2, OPTIONAL)
+                   ("data", UINT4, OPTIONAL)
+                   ]
+             ]]></artwork>
+         </figure>
+     <t>
+         <list style="empty">
+             <t>Source Port:  16 bits - The source port number.
+             </t>
+             <t>
+                 Destination Port:  16 bits - The destination port number.
+             </t>
+             <t>Verification Tag: 16 bits
+                 <list style="empty">
+                    <t>Every user is assigned a random verification tag. The receiver uses the tag to validate the sender. This tag has to be included in every message block.</t>
+                    <t>The sender first initiates the request with a verification tag of 0. The receiver then sends back acknowledgement using his Verification Tag.</t>
+                 </list>
+             </t>
+             <t>
+                 Sequence Number:  32 bits
+                 <list style="empty">                 
+                    <t>The sequence number of the first block of data in this segment except when SYN is present. If INIT is present the sequence number is set to the
+                     initial sequence number (ISN) and the first block is ISN+1.</t>
+                 </list>
+             </t>
+             <t>
+                 Acknowledgment Number:  32 bits
+                 <list style="empty">
+                    <t>The next sequence number that the receiver is expecting. If the ACK bit is set then this field contains the expected sequence number.</t>
+                 </list>
+             </t>
+             <t>
+                 Data Offset:  4 bits
+                 <list style="empty">
+                    <t>The number of 32 bit words in the STOP Header.  This indicates where
+                     the data begins.  The STOP header (even one including options) is an
+                     integral number of 32 bits long.</t>
+                 </list>
+             </t>
+             <t>
+                 Control Bits:  12 bits (from left to right):
+                 
+                 <list style="hanging">
+                     <t>PYLD: This segment contains payload data</t>
+                     <t>INIT: Initiation Request</t>
+                     <t>IACK: Initiation Acknowledgement</t>
+                     <t>HTBT: Heartbeat Probe</t>
+                     <t>HACK: Heartbeat Acknowledgement</t>
+                     <t>ABRT: Abort the connection due to error</t>
+                     <t>FIN:  No more data to send (Finish request)</t>
+                     <t>FACK: Finish Acknowledgment</t>
+                     <t>ERR:  Error</t> 
+                     <t>COOK: Cookie</t>
+                     <t>CACK: Cookie Acknowledgement</t>
+                     <t>CLSE: Connection has been successfully terminated</t>
+                 </list>
+                 
+                 
+             </t>
+             <t>
+                 Checksum:  16 bits
+                 <list style="empty">
+                    <t>The checksum computed is similar to TCP. The checksum field is the 16 bit one's complement of the one's complement sum of all 16 bit words in the header and text.
+                        The checksum also includes the Verification Tag and Stream Identifier of the current connection.
+                        If a segment contains an odd number of header and text octets to be checksummed, the last octet is padded on the right with zeros to form a 16 bit word for checksum purposes.</t>  
+                 </list>
+             </t>
+             <t>
+                 Options: variable
+                 <list style="empty">
+                     <t>Options occupy space at the end of the packet header and are included in the checksum. They are a multiple of 8 bits.</t>
+                 
+                 <t>Currently defines options include:
+                     <figure>
+                         <artwork>
+             Kind     Length    Meaning
+             ----     ------    -------
+             0         -       End of option list.
+             1         -       No-Operation.
+             2         4       Maximum Segment Size.
+             3         4       State Cookie
+             4         4       Cookie Ack
+             5         4       Selective Acknowledgement
+                         </artwork>
+                     </figure>
+                     
+                 </t>
+                 </list>
+             </t>
+             <t>
+                 Padding:  variable
+                 <list style="empty">
+                    <t>The STOP header padding is used to make sure that the header ends
+                     and data begins on a 32-bit boundary. The padding is composed of all
+                     zeros.</t> 
+                 </list>
+             </t>
+             
+         </list>
+        </t>     
+     
+     </section> 
+    
+     
+     <section title="Terminology">
+         <t>The maintenance of a STOP connection requires remembering several variables used throughout the connection. 
+             These variables are stored in a Transmission Control Block or TCB. 
+             Among these are the local and remote socket numbers, pointers to the user's send and receive buffers, to the retransmit queue and to the current segment in a sequence. 
+             Other parameters related to the send and receive queue are stored.
+         </t>         
+         
+         <section title="Parameters Necessary for the STOP user">
+             
+             <t>
+                 Streams: A list of current stream identifiers that are being sent and received by this user. This must be stored in the form of a hash table. 
+                 
+                 Address List: A list of IP addresses that this user has bound.
+                 
+                 STOP port: The local STOP port number to which the endpoint is bound.
+                 
+             </t>
+         </section>
+         
+         
+         
+         <section title="Parameters necessary per Stream">
+             <t>
+                 Peer Verification Tag: Must be present in all the received packets to validate the authenticity of the user at the other end.
+                 
+                 My Verification Tag: This value must be present in every packet that is being sent to the end user.
+                 
+                 State: The state in which the user is in currently.
+                 
+                 Next TSN: This number is to be assigned to the next block of data being sent. 
+                 
+                 Last Rcvd TSN: The last TSN received in the stream.
+                 
+                 Inbound     : An array of structures to track the inbound streams,
+                 Streams     : normally including the next sequence number expected and possibly the stream number.
+                 
+                 Outbound    : An array of structures to track the outbound streams,
+                 Streams     : normally including the next sequence number to be sent on the stream.
+                 
+                 Timer: This timer is used to keep track of all the peers and if they are still responding. 
+                 When the timer for a particular peer crosses a value, a HEARTBEAT REQUEST is sent.
+                 
+             </t>
+             <t>
+                 <vspace blankLines="20"/>
+             </t>
+         </section>
+     </section>
+     
+     
+     
+     
+     
+     <section title="STOP Association State Diagram">
+         
+         <figure>
+             
+             <artwork><![CDATA[
+                      +---+          +------+ (from any state)
+                    /       \      /  rcv ABORT      [ABORT]
+    rcv INIT        +       |      |   +--------+  or +--------+
+    +-------------+ +       V      V   delete TCB     snd ABORT
+    generate Cookie  \    +---+----++                 delete TCB
+    snd INIT ACK       +--+  CLOSED +
+                          +---------+
+                               +      +   create TCB
+                               |      +    +-----+      +----------+
+                               |        \   snd INIT    |   INIT   |
+    rcv VALID COOKIE ECHO      |         +--------------+   SENT   |
+    ---------------------      |                        +----------+
+        create TCB             |           rcv INIT ACK      | 
+       snd COOKIE ACK          |          snd COOKIE ECHO    V
+                               |                        +----------+
+                               |         +--------------+ COOKIE   |
+                               |       / rcv COOKIE ACK |  WAIT    |
+                               |      +   +---------+   |          |
+                               |      +     stop timer  +----------+
+                               V      V
+                              +---------+
+                              |  ESTAB  |
+                              +-+-----+-+
+                       CLOSE    |     |    rcv FIN
+                      +-----+   +     +    +-----+
+ +---------+          snd FIN  /       \   snd ACK          +---------+
+ |  FIN    +<----------------+           +----------------->+  CLOSE  |
+ | WAIT+1  +-----------------+                              |   WAIT  |
+ +-+-------+          rcv FIN  \                            +-------+-+
+   | rcv ACK of FIN   +-----+   +                            CLOSE  |
+   + +------------+   snd ACK   +                           +-----+ +
+   V        x                   V                           snd FIN V
+ +---------+                  +---------+                   +---------+
+ |FINWAIT|2|                  | CLOSING |                   | LAST|ACK|
+ +-+-------+                  +----+----+                   +-------+-+
+   |                rcv ACK of FIN |                 rcv ACK of FIN |
+   |  rcv FIN       +------------+ +    Timeout=2MSL +------------+ +
+   +  +-----+              x       V    +----------+        x       V
+    \ snd ACK                 +---------+delete TCB         +---------+
+     +----------------------->+TIME WAIT+------------------>+ CLOSED  |
+                              +---------+                   +---------+
+                              
+                              
+                              
+             State Transition Diagram of STOP
+             
+                    Figure 3.
+                    
+            	]]></artwork>
+             
+         </figure>
+     </section>
+     
+     
+     <section title="Sequence Numbers">
+         <t>Every block of data being sent has a sequence number associated with it so that each of them can be acknowledged. 
+             The acknowledgement of a sequence number indicates that all blocks of data upto that have been received. 
+             This helps in avoiding possible duplicates in the presence of retransmission.</t> 
+         
+         <t>The actual sequence number space ranges from 0 to 2**32-1. 
+             So all arithmetic calculations must be performed modulo 2**32. 
+             This unsigned arithmetic preserves the relationship of sequence numbers as they cycle from 2**32 - 1 to 0 again.</t>
+         
+         <t>The typical types of sequence number comparisons performed include:
+             <list style="numbers">
+                 <t>Determining if an acknowledgement refers to a segment of data that ahs been sent but not yet acknowledged.</t>
+                 <t>Determining if all sequence numbers occupied by a segment have been acknowledged and remove the segment from the retransmission queue.</t>
+                 <t>Determining if a segment received contains the expected sequence numbers.</t>
+             </list>
+         </t>
+         
+     </section>
+     
+     
+     <section title="Establising a connection">
+         <t>Before any transfer of data can take place both the STOP users must complete an initialization process in order to set up an association.
+             This initialization is carried out by a 4-way handshake mechanism.</t>         
+         <figure>
+             <artwork><![CDATA[
+         STOP A                                                STOP B
+     
+     1.  CLOSED                                                CLOSED
+     
+     2.  INIT-SENT   ---> Provide Verification Tag     ------> INIT-RCVD
+     
+     3.  COOKIE-RCVD <--INIT ACK, Verification Tag, Cookie <-- INIT-RCVD
+         
+     4.  COOKIE-ECHO -->  COOKIE, XOR Verification Tags  --> COOKIE-WAIT
+         
+     5.  ESTABLISHED   <--  COOKIE ACK, Tag, Stream ID   <-- COOKIE-ACK
+             
+             Basic 4-Way Handshake for Connection Establishment
+             
+                                Figure 4.
+             ]]></artwork>
+         </figure>
+         
+            <t>The 4-way handshake is used to avoid IP sppofing by malicious attackers.
+                Each user selects a randomly chosen Verification Tag. It must be within 0 - 2**16-1. The receiver similarly chooses his Tag and sends it back with a cookie.
+                The verification of the user happens by sending a STATE COOKIE and waiting for the user to ECHO the correct cookie along with its verification tag XOR with the verification tag of the other user.
+                All the segments henceforth contain the XOR of both the verification tags.
+                The receiver choses a stream identifier and sends it to the initiator. This stream id must also be included in all the following transmissions.
+                The STATE COOKIE is sent as payload data.</t>
+            
+            <t>In step 3 after B sends an INIT ACK it must not create the TCB and allocate any resources or keep any states for the new association. 
+                This helps in preventing SYN FLOODING attacks. The TCB must only be created when the user echoes back the correct cookie.
+            </t>
+            
+            <t>In the INIT and INIT-ACK blocks, the user must indicate the maximum segment size using the options field. 
+                The cookie is sent and echoed back in the options field.</t> 
+     </section>
+     
+     <section title="Closing a connection">
+         <t>When a user has no more data to send it sends the FIN segment saying it wishes to close the current association. 
+             The receiver sends a FIN-ACK saying that the connection can be closed. 
+             It does not close the connection as it might still be processing all the segments received. 
+             Once it has received all the segments, the end user sends a FIN segment. 
+             The user then responds to this request by sending back a FIN-ACK. 
+             This finally terminates the connection and both the states go back to CLOSED state.</t>
+     </section>
+     
+     <section title="Data Communication and Synchronization">
+         <t>Once the connection is successfully established, data is sent and received in segments containing blocks of data. 
+             Each block denotes the segment it belongs to as well as the stream that that particular segments belongs to. 
+             This helps in ordering the blocks systematically by the receiver.</t> 
+         
+         <t>The sender starts a timer to keep track of all the ACKS. 
+             If a particular segment has not been acknowledged, then the sender can retransmit the segment once the timer goes off. 
+             The unacknowledged blocks are stored in a retransmission queue so that any blocks that require to be resent can be sent from the queue.</t>
+         
+         <t>The sender keeps track of the next sequence number to be sent. 
+             The receiver also keeps track of the next expected block of data that is to be inbound. 
+             If the receiver finda that it has been missing some blocks, then it can request a fast retransmission of the missing blocks, 
+             instead of the sender waiting for the timer to go off.</t>         
+     </section>
+     
+     <section title="HEARTBEAT">
+         <t>If a connection has not been terminated and one of the users is not responding, then a HEARTBEAT segment can be sent to ensure of the user is still up.
+             The user sends a HEARTBEAT and starts a timer and waits for an HEARTBEAT-ACK. 
+             If the user does not receive an ACK, he sends a HEARTBEAT again and starts the timer again. 
+             He does this 3 times and if there is no reply from the other end it closes the connection and deletes the resources and parameters pertaining to that connection from the TCB.</t>
+     </section>
+     
+     <section title="Congestion Control">
+         <t>The sender keeps track of the next segment to be transmitted and also of all the segments that have been acknowledged. 
+             If the sender determines that the difference between the next sequence number and the last acknowledged segment is more than 10 (or any other fixed value),
+             it waits for the user to ACK the other pending segments. If the receiver acknowledges the segments, 
+             then the sender continues to keeps sending segments of data.</t>         
+         
+     </section>
+ </section>
+
+     
+ </middle>
+    
+    <back>
+        <references>
+            
+            <reference anchor="RFC4960">
+                <front>
+                    <title>Stream Control Transmission Protocol</title>
+                    <author initials="R." surname="Stewart"
+                        fullname="Randall Stewart">
+                        <organization>
+                            Network Working Group
+                        </organization>
+                    </author>
+                    
+                    <date month="September" year="2007" />
+                </front>
+                <seriesInfo name="RFC" value="4960" />
+                <seriesInfo name="STD" value="1" />
+            </reference>
+            
+            <reference anchor="RFC793">
+                <front>
+                    <title>Transmission Control Protocol</title>
+                    <author initials="J." surname="Postel"
+                        fullname="Jon Postel">
+                        <organization abbrev="ISI">
+                            USC/Information Sciences Institute
+                        </organization>
+                    </author>
+                    
+                    <date month="September" year="1981" />
+                </front>
+                <seriesInfo name="RFC" value="793" />
+                <seriesInfo name="STD" value="1" />
+            </reference>
+            
+        </references>
+        
+    </back>
+</rfc>
